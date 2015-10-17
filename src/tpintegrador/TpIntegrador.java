@@ -5,7 +5,7 @@
  */
 package tpintegrador;
 
-import Interfaz.Principal;
+import presentacion.Principal;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 

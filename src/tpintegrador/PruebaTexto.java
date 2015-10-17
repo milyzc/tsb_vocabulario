@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebatexto;
+package tpintegrador;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,11 +17,12 @@ import java.util.StringTokenizer;
  */
 public class PruebaTexto {
 
-        static File f = new File ("16082-8.txt");
+        static File f = new File ("E:\\TSB\\tsb_vocabulario\\res\\16082-8.txt");
+        
         static FileReader in;
         static BufferedReader ifile;
     public static void main(String[] args) {
-                              
+        System.out.println(f.getPath());
             try
                 {
                     in = new FileReader(f);
@@ -45,7 +46,9 @@ public class PruebaTexto {
                         linea = ifile.readLine();
                         numLinea++;
                     }
-            }catch(Exception e){}
+            }catch(Exception e){
+                e.printStackTrace();
+            }
 
     }
 }
