@@ -4,7 +4,7 @@ package logica.entidades;
  *
  * @author MilagrosZea
  */
-public class Palabra implements Comparable {
+public class Palabra implements Comparable<Palabra> {
 
     private String descripcion;
     private int cantidad;
@@ -38,14 +38,13 @@ public class Palabra implements Comparable {
     /**
      * Compara dos palabras, devuelve 0 si son iguales y -1 si no lo son.
      *
-     * @param o
+     * @param p
      * @return
      */
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Palabra p) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        try {
-            Palabra p = (Palabra) o;
+        try {            
             if (this.descripcion.compareTo(p.descripcion) == 0) {
                 return 0;
             }
@@ -57,7 +56,7 @@ public class Palabra implements Comparable {
 
     @Override
     public String toString() {
-        return "Palabra{" + "descripcion=" + descripcion +", cantidad= "+ cantidad+ '}';
+        return "Palabra{" + "descripcion=" + descripcion + ", cantidad= " + cantidad + '}';
     }
 
 }

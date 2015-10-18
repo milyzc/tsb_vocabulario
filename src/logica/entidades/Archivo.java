@@ -6,7 +6,7 @@ import logica.util.*;
  *
  * @author MilagrosZea
  */
-public class Archivo {
+public class Archivo implements Comparable<Archivo> {
 
     private int idArchivo;
     private String ruta;
@@ -64,9 +64,26 @@ public class Archivo {
         this.palabras = palabras;
     }
 
+    /**
+     * Compara archivos según su nombre ruta, si estas coninciden los archivos
+     * son iguales.
+     *
+     * @param a
+     * @return
+     */
+    @Override
+    public int compareTo(Archivo a) {
+        if ((this.nombre.compareTo(a.nombre) == 0) && (this.ruta.compareTo(a.ruta) == 0)) {
+            return 0;
+        }
+        return -1;
+    }
+
     @Override
     public String toString() {
-        return "Archivo{" + "idArchivo=" + idArchivo + ", nombre=" + nombre + ", palabras=" + palabras.toString() + '}';
+        return "Archivo{" + "idArchivo=" + idArchivo + ", nombre=" + nombre
+                + ", ruta= " + ruta
+                + ", palabras=" + palabras.toString() + '}';
     }
 
     private void agregar_nueva_palabra(Palabra p) {
