@@ -37,7 +37,7 @@ public class PruebaTexto {
                         // bucle por todas las palabras
                         while (st.hasMoreTokens())
                         {
-                            lineastr = st.nextToken().replaceAll("", "");
+                            lineastr = st.nextToken().replaceAll("\\p{Punct}", "");
                             numTokens++;
                             
                             System.out.println ("Linea "+ numLinea+" Palabra " + numTokens + " es: " + lineastr);

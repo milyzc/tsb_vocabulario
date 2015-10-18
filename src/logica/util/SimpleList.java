@@ -382,7 +382,7 @@ public class SimpleList <E extends Comparable> implements Iterable<E>
           while( p != null )
           {
              res = res + p.toString();
-             if ( p.getNext() != null ) { res = res + ", "; }
+             if ( p.getNext() != null ) { res = res + ", \n "; }
              p = p.getNext();
           }
           res = res + "]";
