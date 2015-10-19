@@ -21,14 +21,9 @@ public class Util {
         for (int i = 0; i < c.length; i++) {
             if (!Character.isLetter(c[i])) {
                 try {
-                    if (Character.isDigit(c[i])) {
-                        //System.out.println(palabra);
+                    if (Character.isDigit(c[i])) {                        
                         return false;
                     }
-//                    if (Character.isLetter(c[i - 1]) && Character.isLetter(c[i + 1])) {
-//                        System.out.println(palabra);
-//                        return false;
-//                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
