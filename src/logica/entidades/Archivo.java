@@ -2,9 +2,12 @@ package logica.entidades;
 
 import logica.util.*;
 
+import java.io.File;
+
 /**
  *
- * @author MilagrosZea
+ * @author Milagros Zea Cárdenas
+ * @version 1.0
  */
 public class Archivo implements Comparable<Archivo> {
 
@@ -13,8 +16,9 @@ public class Archivo implements Comparable<Archivo> {
     private String nombre;
     private SimpleList<Palabra> palabras;
 
-    public Archivo(String ruta) {
-        this.ruta = ruta;
+    public Archivo(File archivo) {
+        ruta = archivo.getPath();
+        nombre = archivo.getName();
         palabras = new SimpleList<>();
     }
 

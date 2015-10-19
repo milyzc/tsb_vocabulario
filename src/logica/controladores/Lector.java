@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package logica.controladores;
 
 import logica.util.*;
@@ -19,7 +14,8 @@ import java.util.LinkedList;
 
 /**
  *
- * @author MilagrosZea
+ * @author Milagros Zea Cárdenas
+ * @version 1.0
  */
 public class Lector {
 
@@ -68,10 +64,9 @@ public class Lector {
      * Lee una archivo y retorna una colección de las palabras encontradas en el
      * sin ningún signo de puntuación. Si no retorna una lista vacia.
      *
-     * @param ruta
-     * @return
+     * @param archivo     
      */
-    public void leer(Archivo archivo) {
+    private void leer(Archivo archivo) {
         //pensar
         this.iniciarArchivo(archivo.getRuta());
         //SimpleList<Palabra> palabras_pro = new SimpleList<>();

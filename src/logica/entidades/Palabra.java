@@ -3,6 +3,7 @@ package logica.entidades;
 /**
  *
  * @author MilagrosZea
+ * @version 1.0
  */
 public class Palabra implements Comparable<Palabra> {
 
