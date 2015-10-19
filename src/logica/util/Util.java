@@ -16,7 +16,7 @@ public class Util {
      * @param palabra
      * @return
      */
-    //MILI LO MODIFIQUE UN POCO :). EMILIANO.
+    //EMii lo volví como antes porque sino no me toma las palabras con tilde
     public static boolean es_palabra(String palabra) {
         char[] c = palabra.toCharArray();
         for (int i = 0; i < c.length; i++) {
