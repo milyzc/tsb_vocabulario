@@ -16,12 +16,13 @@ public class Util {
      * @param palabra
      * @return
      */
+    //MILI LO MODIFIQUE UN POCO :). EMILIANO.
     public static boolean es_palabra(String palabra) {
         char[] c = palabra.toCharArray();
         for (int i = 0; i < c.length; i++) {
             if (!Character.isLetter(c[i])) {
                 try {
-                    if (Character.isDigit(c[i])) {                        
+                    if (Character.isDigit(c[i])) {
                         return false;
                     }
                 } catch (Exception e) {
@@ -29,6 +30,7 @@ public class Util {
                 }
             }
         }
+
         return true;
     }
 }
