@@ -20,24 +20,17 @@ public class Util {
      * @param palabra
      * @return
      */
+    
+    //MILI LO MODIFIQUE UN POCO :). EMILIANO.
     public static boolean es_palabra(String palabra) {
         char[] c = palabra.toCharArray();
         for (int i = 0; i < c.length; i++) {
-            if (!Character.isLetter(c[i])) {
+            
                 try {
-                    if (Character.isDigit(c[i])) {
-                        //System.out.println(palabra);
-                        return false;
-                    }
-//                    if (Character.isLetter(c[i - 1]) && Character.isLetter(c[i + 1])) {
-//                        System.out.println(palabra);
-//                        return false;
-//                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    if (!Character.isLetter(c[i])) {return false;}
+                } catch (Exception e) { e.printStackTrace(); }
             }
-        }
+        
         return true;
     }
 }
