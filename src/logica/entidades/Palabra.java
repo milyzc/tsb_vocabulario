@@ -15,6 +15,12 @@ public class Palabra implements Comparable<Palabra> {
         this.cantidad = 0;
     }
 
+    //Autor Emiliano.
+    public Palabra(String d,int c)
+    {
+        descripcion = d;
+        cantidad = c;
+    }
     public String getDescripcion() {
         return descripcion;
     }
