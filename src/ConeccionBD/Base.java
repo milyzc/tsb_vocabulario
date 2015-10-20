@@ -195,6 +195,42 @@ public static StringBuilder seleccionarTodasPalabrasDeUnArchivo(int id)
     catch(Exception e){System.out.println(e.getClass() + " - " + e.getMessage());}
     return sb;
 }
+
+//Busca por palabras o por raiz , Devuelve los archivos en los que esta y la frecuencia con que se repite
+
+public static StringBuilder buscarPalabra(String p)
+{
+     try
+    {   
+        Connection con = getConeccion();
+        Statement s = getStatement(con);
+        String Query = "Select Archivo.nombre,PalabrasXArchivo.palabra ,PalabrasXArchivo.contador ";
+        Query += "From PalabrasXArchivo,Archivo ";
+        Query += "Where PalabrasXArchivo.palabra LIKE('" +p + "%')";
+        Query += " and PalabrasXArchivo.idArchivo = Archivo.idArchivo"; 
+        ResultSet rs = s.executeQuery(Query);
+        StringBuilder sb = new StringBuilder();
+        String etiqueta = "[Palabra o raiz: " + p + " ] " +"\n";
+        sb.append(etiqueta);
+          while(rs.next())
+        {
+            String row = "[ " ;
+            row += rs.getString(1) + " - ";
+            row += rs.getString(2) + " - ";
+            row += rs.getInt(3) + " ] ";
+            
+            sb.append(row);
+            sb.append("\n");
+        }
+          
+        s.close();
+        con.close();
+        
+        return sb;
+    }
+    catch(Exception e){System.out.println(e.getClass() + " - " + e.getMessage());}
+   return null;
+}
  
 //Borra todo de las dos tablas de la base de datos.
 public static void clearDB()
