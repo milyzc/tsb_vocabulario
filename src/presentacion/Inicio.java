@@ -2,9 +2,14 @@ package presentacion;
 
 import java.awt.HeadlessException;
 import java.io.File;
+import java.util.Iterator;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import logica.entidades.*;
+
+import logica.util.*;
 
 /**
  *
@@ -14,6 +19,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Inicio extends javax.swing.JFrame {
 
     private File[] archivosALeer;
+    public static boolean NUEVOS_ARCHIVOS = false;
+    public static boolean PROCESAMIENTO_INICIADO = false;
 
     /**
      * Creates new form Principal
@@ -22,12 +29,41 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         configurarSeleccionadorArchivos();
         archivosALeer = null;
+        pbProcesandoArchivos.setVisible(false);
     }
 
     public File[] getArchivosALeer() {
         return archivosALeer;
     }
 
+    public void setArchivosALeer(File[] file) {
+        archivosALeer = file;
+    }
+
+    /**
+     * Actualiza la tabla de archivos para ser procesados según la cola de
+     * archivos que se pasa como parametro. Y setea la bandera NUEVOS_ARCHIVOS
+     * en false, de esta forma indica que no hay más archivos para mostrar
+     *
+     * @param colaArchivos
+     */
+    public void mostrarArchivos(SimpleList<Archivo> colaArchivos) {
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.setColumnIdentifiers(new String[]{"Nombre", "Path", ""});
+        Iterator<Archivo> it = colaArchivos.iterator();
+        Archivo archivo = null;
+        while (it.hasNext()) {
+            archivo = it.next();
+            dtm.addRow(new Object[]{archivo.getNombre(), archivo.getRuta()});
+        }
+        tblArchivosAProcesar.setModel(dtm);
+        Inicio.NUEVOS_ARCHIVOS = false;
+    }
+
+    /**
+     * configura la extensión de arvhivos que se visualizan en el selecionador
+     * de archivos (file chooser).
+     */
     private void configurarSeleccionadorArchivos() {
         FileFilter ff = new FileNameExtensionFilter("txt", "TXT");
         fcSeleccionadorArchivos.setFileFilter(ff);
@@ -35,6 +71,9 @@ public class Inicio extends javax.swing.JFrame {
         ocutarSeleccionadorArchivos();
     }
 
+    /**
+     * Esconde el Selecionador de archivos (FileChooser).
+     */
     private void ocutarSeleccionadorArchivos() {
         fcSeleccionadorArchivos.setVisible(false);
     }
@@ -49,7 +88,6 @@ public class Inicio extends javax.swing.JFrame {
     private void initComponents() {
 
         btnSeleccionarArchivos = new java.awt.Button();
-        ltArchivosAProcesar = new java.awt.List();
         btnProcesar = new java.awt.Button();
         lblArchivosAProcesar = new java.awt.Label();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -58,6 +96,9 @@ public class Inicio extends javax.swing.JFrame {
         txtBuscar = new java.awt.TextField();
         lblVocabulario = new java.awt.Label();
         fcSeleccionadorArchivos = new javax.swing.JFileChooser();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblArchivosAProcesar = new javax.swing.JTable();
+        pbProcesandoArchivos = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TSB Vocabulario");
@@ -105,6 +146,31 @@ public class Inicio extends javax.swing.JFrame {
         fcSeleccionadorArchivos.setAcceptAllFileFilterUsed(false);
         fcSeleccionadorArchivos.setCurrentDirectory(new java.io.File("E:\\TSB\\tsb_vocabulario\\res"));
 
+        tblArchivosAProcesar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Path"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblArchivosAProcesar);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -112,48 +178,61 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ltArchivosAProcesar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblArchivosAProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSeleccionarArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(fcSeleccionadorArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblVocabulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblVocabulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(641, 641, 641))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 817, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblArchivosAProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(244, 244, 244))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pbProcesandoArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnSeleccionarArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(73, 73, 73)
+                                        .addComponent(btnProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(fcSeleccionadorArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblArchivosAProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSeleccionarArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ltArchivosAProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnProcesar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fcSeleccionadorArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblVocabulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblVocabulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnSeleccionarArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pbProcesandoArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fcSeleccionadorArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,6 +248,7 @@ public class Inicio extends javax.swing.JFrame {
                 case JFileChooser.APPROVE_OPTION:
                     ocutarSeleccionadorArchivos();
                     archivosALeer = fcSeleccionadorArchivos.getSelectedFiles();
+                    Inicio.NUEVOS_ARCHIVOS = true;
                     //System.out.println(archivosALeer[0].getPath());
                     break;
                 case JFileChooser.CANCEL_OPTION:
@@ -187,9 +267,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeleccionarArchivosActionPerformed
 
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
-        // TODO add your handling code here:
-        Proceso form = new Proceso();
-        form.setVisible(true);
+        Inicio.PROCESAMIENTO_INICIADO = true;
+        pbProcesandoArchivos.setVisible(true);
     }//GEN-LAST:event_btnProcesarActionPerformed
 
     /**
@@ -200,10 +279,12 @@ public class Inicio extends javax.swing.JFrame {
     private java.awt.Button btnSeleccionarArchivos;
     private javax.swing.JFileChooser fcSeleccionadorArchivos;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private java.awt.Label lblArchivosAProcesar;
     private java.awt.Label lblBuscar;
     private java.awt.Label lblVocabulario;
-    private java.awt.List ltArchivosAProcesar;
+    private javax.swing.JProgressBar pbProcesandoArchivos;
+    private javax.swing.JTable tblArchivosAProcesar;
     private javax.swing.JTable tblVocabulario;
     private java.awt.TextField txtBuscar;
     // End of variables declaration//GEN-END:variables

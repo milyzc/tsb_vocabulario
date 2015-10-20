@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.StringTokenizer;
-import java.util.LinkedList;
 
 /**
  *
@@ -20,10 +19,18 @@ import java.util.LinkedList;
 public class Lector {
 
     private File f;
-    private LinkedList<Archivo> colaArchivos;
+    private SimpleList<Archivo> colaArchivos;
 
     public Lector() {
-        colaArchivos = new LinkedList<>();
+        colaArchivos = new SimpleList<>();
+    }
+
+    public SimpleList<Archivo> getColaArchivos() {
+        return colaArchivos;
+    }
+
+    public void setColaArchivos(SimpleList<Archivo> archivos) {
+        colaArchivos = archivos;
     }
 
     /**
@@ -54,7 +61,7 @@ public class Lector {
      */
     public boolean agregar_archivo(Archivo a) {
         if (!colaArchivos.contains(a)) {
-            colaArchivos.push(a);
+            colaArchivos.addLast(a);
             return true;
         }
         return false;
@@ -64,7 +71,7 @@ public class Lector {
      * Lee una archivo y retorna una colección de las palabras encontradas en el
      * sin ningún signo de puntuación. Si no retorna una lista vacia.
      *
-     * @param archivo     
+     * @param archivo
      */
     private void leer(Archivo archivo) {
         //pensar

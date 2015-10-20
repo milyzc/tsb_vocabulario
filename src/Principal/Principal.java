@@ -10,7 +10,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * Controlador Principal. 
+ * Controlador Principal.
+ *
  * @author Tyncho
  */
 public class Principal {
@@ -39,19 +40,20 @@ public class Principal {
         Inicio inicio = new Inicio();
         inicio.setVisible(true);
         while (true) {
-            System.out.println(inicio.getArchivosALeer());
-            if (inicio.getArchivosALeer() != null) {               
+            System.out.println("aca");
+            if (Inicio.NUEVOS_ARCHIVOS) {
                 System.out.println("entró");
-                for (File archivoSeleccionado : inicio.getArchivosALeer()) {                    
-                    archivo = new Archivo(archivoSeleccionado);
-                    lectorArchivos.agregar_archivo(archivo);
+                for (File archivoSeleccionado : inicio.getArchivosALeer()) {
+                    lectorArchivos.agregar_archivo(new Archivo(archivoSeleccionado));
                 }
-                break;
+                //System.out.println(lectorArchivos.toString());
+                inicio.mostrarArchivos(lectorArchivos.getColaArchivos());
+                //System.out.println("final");
+            }
+            if (Inicio.PROCESAMIENTO_INICIADO) {
+                System.out.println(lectorArchivos.procesar_archivos());
+
             }
         }
-        System.out.println("aca");
-        System.out.println(lectorArchivos.toString());
-
     }
-
 }
