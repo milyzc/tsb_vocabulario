@@ -13,7 +13,7 @@ import java.sql.*;
  */
 public abstract class Base {
 
-    private final static String stringConeccion = "jdbc:sqlite:C:\\Users\\Emiliano\\Desktop\\TSB - TPI - Repositorio\\tsb_vocabulario\\src\\BD\\DB.sqlite";        
+    private final static String stringConeccion = "jdbc:sqlite:C:\\Users\\Emiliano\\Desktop\\TSB - TPI - Repositorio\\tsb_vocabulario\\src\\BD\\DB.sqlite";
 
 //Por Ahora todos los metodos funcionan con tipos de datos simples como parametros. 
 //Cuando este resuelto lo de entidades funcionaran con los objetos como parametros.    
@@ -221,12 +221,13 @@ public abstract class Base {
             Statement s = getStatement(conn);
             s.execute("Delete  From Archivo Where idArchivo > 0");
             s.execute("Delete  From PalabrasXArchivo Where idArchivo > 0");
+            s.execute("Delete From Palabra");
             System.out.println("Borrado Exitoso");
             s.close();
             conn.close();
         } catch (Exception e) {
             System.out.println(e.getClass() + " - " + e.getMessage());
         }
+
     }
-    
 }
