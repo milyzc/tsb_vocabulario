@@ -164,22 +164,22 @@ public static int obtenerIdArchivoPorRuta(String ruta)
 
 
 //Devuelve todas las palabras que hay en un Archivo  @param id;
-public static ResultSet seleccionarTodasPalabrasDeUnArchivo(int id)
-{
-      try
-    {   
-        Connection con = getConeccion();
-        Statement s = getStatement(con);
-        String Query = "Select * From PalabrasXArchivo Where idArchivo = " + id;
-        ResultSet rs = s.executeQuery(Query);
-        s.close();
-        con.close();
-        return rs;
-    }
-    catch(Exception e){System.out.println(e.getClass() + " - " + e.getMessage());}
-    return null;
-}
-
+//public static ResultSet seleccionarTodasPalabrasDeUnArchivo(int id)
+//{
+//      try
+//    {   
+//        Connection con = getConeccion();
+//        Statement s = getStatement(con);
+//        String Query = "Select * From PalabrasXArchivo Where idArchivo = " + id;
+//        ResultSet rs = s.executeQuery(Query);
+//        s.close();
+//        con.close();
+//        return rs;
+//    }
+//    catch(Exception e){System.out.println(e.getClass() + " - " + e.getMessage());}
+//    return null;
+//}
+//
 
 
 
