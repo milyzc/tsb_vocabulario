@@ -4,6 +4,7 @@ import java.awt.HeadlessException;
 import java.io.File;
 import java.util.Iterator;
 import javax.swing.JFileChooser;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +22,7 @@ public class Inicio extends javax.swing.JFrame {
     private File[] archivosALeer;
     public static boolean NUEVOS_ARCHIVOS = false;
     public static boolean PROCESAMIENTO_INICIADO = false;
+    public static boolean MOSTRAR_DETALLE = false;
 
     /**
      * Creates new form Principal
@@ -47,7 +49,7 @@ public class Inicio extends javax.swing.JFrame {
      *
      * @param colaArchivos
      */
-    public void mostrarArchivos(SimpleList<Archivo> colaArchivos) {
+    public void mostrarArchivosAProcesar(SimpleList<Archivo> colaArchivos) {
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.setColumnIdentifiers(new String[]{"Nombre", "Path", ""});
         Iterator<Archivo> it = colaArchivos.iterator();
@@ -58,6 +60,27 @@ public class Inicio extends javax.swing.JFrame {
         }
         tblArchivosAProcesar.setModel(dtm);
         Inicio.NUEVOS_ARCHIVOS = false;
+    }
+
+    /**
+     * Muestra las palabras y su frecuencia total (cantidad de apariciones en
+     * todos los archivos) enviadas por parametro en la tabla
+     *
+     * @param palabras
+     */
+    public void mostrarPalabras(SimpleList<Palabra> palabras) {
+        if (palabras != null) {
+            DefaultTableModel dtm = new DefaultTableModel();
+            dtm.setColumnIdentifiers(new String[]{"Palabra", "Frecuencia"});
+            Iterator<Palabra> it = palabras.iterator();
+            Palabra palabra = null;
+            while (it.hasNext()) {
+                palabra = it.next();
+                dtm.addRow(new Object[]{palabra.getDescripcion(), palabra.getCantidad()});
+            }
+            tblArchivosAProcesar.setModel(dtm);
+            Inicio.PROCESAMIENTO_INICIADO = false;
+        }
     }
 
     /**
@@ -124,16 +147,33 @@ public class Inicio extends javax.swing.JFrame {
 
         tblVocabulario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Palabra", "Frecuencia"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblVocabulario.setEditingRow(0);
+        tblVocabulario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVocabularioMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblVocabulario);
 
         lblBuscar.setText("Buscar");
@@ -188,9 +228,7 @@ public class Inicio extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(641, 641, 641))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 817, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 817, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -270,6 +308,16 @@ public class Inicio extends javax.swing.JFrame {
         Inicio.PROCESAMIENTO_INICIADO = true;
         pbProcesandoArchivos.setVisible(true);
     }//GEN-LAST:event_btnProcesarActionPerformed
+
+    private void tblVocabularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVocabularioMouseClicked
+        if (evt.getClickCount() == 2) {
+            JTable target = (JTable) evt.getSource();
+            int row = target.getSelectedRow();
+            int column = target.getSelectedColumn();
+            
+            Inicio.MOSTRAR_DETALLE = true;
+        }
+    }//GEN-LAST:event_tblVocabularioMouseClicked
 
     /**
      * @param args the command line arguments

@@ -1,5 +1,6 @@
 package logica.entidades;
 
+
 /**
  *
  * @author MilagrosZea
@@ -59,5 +60,7 @@ public class Palabra implements Comparable<Palabra> {
     public String toString() {
         return "Palabra{" + "descripcion=" + descripcion + ", cantidad= " + cantidad + '}';
     }
+    
+    
 
 }

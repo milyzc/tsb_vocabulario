@@ -20,23 +20,8 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-//        try {
-//            // Set cross-platform Java L&F (also called "Metal")
-//
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (UnsupportedLookAndFeelException e) {
-//            // handle exception
-//        } catch (ClassNotFoundException e) {
-//            // handle exception
-//        } catch (InstantiationException e) {
-//            // handle exception
-//        } catch (IllegalAccessException e) {
-//            // handle exception
-//        }        
         Lector lectorArchivos = new Lector();
-        SimpleList<Archivo> archivosProcesados = null;
-        Archivo archivo = null;
+        //SimpleList<Archivo> archivos = null;       
         Inicio inicio = new Inicio();
         inicio.setVisible(true);
         while (true) {
@@ -47,12 +32,20 @@ public class Principal {
                     lectorArchivos.agregar_archivo(new Archivo(archivoSeleccionado));
                 }
                 //System.out.println(lectorArchivos.toString());
-                inicio.mostrarArchivos(lectorArchivos.getColaArchivos());
+                inicio.mostrarArchivosAProcesar(lectorArchivos.getColaArchivos());
                 //System.out.println("final");
             }
             if (Inicio.PROCESAMIENTO_INICIADO) {
-                System.out.println(lectorArchivos.procesar_archivos());
+                //enviar esta SimpleList para grabar a la base de datos.
+                lectorArchivos.procesar_archivos();
 
+                //recargar la tabla de palabras (de la interfaz gráfica) desde 
+                // la base de datos. El metodo devuelve un SimpleList<Palabras>
+                SimpleList<Palabra> palabras = null;
+                inicio.mostrarPalabras(palabras);
+            }
+            if(Inicio.MOSTRAR_DETALLE){
+                
             }
         }
     }
