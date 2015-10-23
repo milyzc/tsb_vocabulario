@@ -20,6 +20,7 @@ import logica.util.*;
 public class Inicio extends javax.swing.JFrame {
 
     private File[] archivosALeer;
+    private Palabra palabraSeleccionada;
     public static boolean NUEVOS_ARCHIVOS = false;
     public static boolean PROCESAMIENTO_INICIADO = false;
     public static boolean MOSTRAR_DETALLE = false;
@@ -313,8 +314,7 @@ public class Inicio extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
             JTable target = (JTable) evt.getSource();
             int row = target.getSelectedRow();
-            int column = target.getSelectedColumn();
-            
+            int column = target.getSelectedColumn();            
             Inicio.MOSTRAR_DETALLE = true;
         }
     }//GEN-LAST:event_tblVocabularioMouseClicked

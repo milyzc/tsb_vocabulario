@@ -4,6 +4,7 @@ import logica.controladores.*;
 import logica.entidades.*;
 import logica.util.*;
 import presentacion.Inicio;
+import ConeccionBD.BasePalabra;
 
 import java.io.File;
 import javax.swing.UIManager;
@@ -41,7 +42,7 @@ public class Principal {
 
                 //recargar la tabla de palabras (de la interfaz gráfica) desde 
                 // la base de datos. El metodo devuelve un SimpleList<Palabras>
-                SimpleList<Palabra> palabras = null;
+                SimpleList<Palabra> palabras = BasePalabra.obtenerTodasPalabras();
                 inicio.mostrarPalabras(palabras);
             }
             if(Inicio.MOSTRAR_DETALLE){
