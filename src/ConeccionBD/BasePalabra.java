@@ -13,6 +13,7 @@ import static ConeccionBD.Base.getConeccion;
 import static ConeccionBD.Base.getStatement;
 import java.util.LinkedList;
 import logica.entidades.Palabra;
+import logica.util.*;
 
 /**
  *
@@ -159,4 +160,31 @@ public class BasePalabra extends Base {
         return null;
     }
 
+    
+    public static SimpleList<Palabra> obtenerTodasPalabras()
+    {
+        try
+        {
+            SimpleList<Palabra> slp = new SimpleList<>();
+            String query = "Select * From Palabra";
+            Connection con = getConeccion();
+            Statement s = getStatement(con);
+            ResultSet rs = s.executeQuery(query);
+            while(rs.next())
+            {
+                Palabra p = new Palabra(rs.getString("palabra"),rs.getInt("contadorTotal"));
+                slp.addFirst(p);
+            }
+            s.close();
+            con.close();
+            return slp;
+            
+        }
+        catch(Exception e){}
+        return null;
+    }
+    
+    
+    
+    
 }
