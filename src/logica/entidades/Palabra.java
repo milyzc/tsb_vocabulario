@@ -46,7 +46,17 @@ public class Palabra implements Comparable<Palabra> {
     /**
      * Compara dos palabras, devuelve 0 si son iguales y -1 si no lo son.
      *
-     * @param p
+    public int compareTo(Palabra p) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {            
+            if (this.descripcion.compareTo(p.descripcion) == 0) {
+                return 0;
+            }
+        } catch (UnsupportedOperationException u) {
+            System.out.println(u.getMessage());
+        }
+        return -1;
+    }    * @param p
      * @return
      */
     @Override

@@ -5,7 +5,7 @@
  */
 package ConeccionBD;
 import java.sql.*;
-
+import java.io.File;
 /**
  *
  * @author Emiliano
@@ -26,6 +26,7 @@ public static Connection getConeccion(){
     Connection conn = null;
     try
     {
+        
         Class.forName("org.sqlite.JDBC");
         conn = DriverManager.getConnection(stringConeccion);
              

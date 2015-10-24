@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import static ConeccionBD.Base.getConeccion;
 import static ConeccionBD.Base.getStatement;
+import logica.entidades.Archivo;
 
 /**
  *
@@ -68,16 +69,16 @@ public class BaseArchivo extends Base {
     }
 
 //Verifica que el archivo a insertar, no exista en la base de datos, en ese caso lo inserta y devuelve true. De otro modo devuelve false.
-    public static boolean insertarArchivo(String nombre, String ruta) {
+    public static boolean insertarArchivo(Archivo a) {
 
         try {
-            if (!existeArchivo(ruta)) {
+            if (!existeArchivo(a.getRuta())) {
                 int ultimoID = obtenerUltimoIdArchivo();
                 if (ultimoID == -1) {
                     ultimoID = 100;
                     Connection conn = getConeccion();
                     Statement s = getStatement(conn);
-                    String insert = "Insert into Archivo Values ( " + ultimoID + ", " + "\"" + nombre + "\"" + ", " + "\"" + ruta + "\"" + " )";
+                    String insert = "Insert into Archivo Values ( " + ultimoID + ", " + "\"" + a.getNombre() + "\"" + ", " + "\"" + a.getRuta() + "\"" + " )";
                     s.execute(insert);
                     s.close();
                     conn.close();
@@ -86,7 +87,7 @@ public class BaseArchivo extends Base {
                     Connection conn = getConeccion();
                     Statement s = getStatement(conn);
                     ultimoID++;
-                    String insert = "Insert into Archivo Values ( " + ultimoID + ", " + "\"" + nombre + "\"" + ", " + "\"" + ruta + "\"" + " )";
+                    String insert = "Insert into Archivo Values ( " + ultimoID + ", " + "\"" + a.getNombre() + "\"" + ", " + "\"" + a.getRuta() + "\"" + " )";
                     s.execute(insert);
                     s.close();
                     conn.close();
