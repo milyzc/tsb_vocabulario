@@ -1,5 +1,6 @@
 package presentacion;
 
+import ConeccionBD.BasePalabra;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.util.Iterator;
@@ -8,6 +9,7 @@ import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import logica.controladores.*;
 import logica.entidades.*;
 
 import logica.util.*;
@@ -18,9 +20,8 @@ import logica.util.*;
  * @version 1.0
  */
 public class Inicio extends javax.swing.JFrame {
-
-    private File[] archivosALeer;
-    private Palabra palabraSeleccionada;
+    
+    private Lector lector;
     public static boolean NUEVOS_ARCHIVOS = false;
     public static boolean PROCESAMIENTO_INICIADO = false;
     public static boolean MOSTRAR_DETALLE = false;
@@ -28,19 +29,12 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    public Inicio() {
+    public Inicio(Lector controlador) {
         initComponents();
         configurarSeleccionadorArchivos();
-        archivosALeer = null;
+        lector = controlador;
+        mostrarPalabras(BasePalabra.obtenerTodasPalabras());
         pbProcesandoArchivos.setVisible(false);
-    }
-
-    public File[] getArchivosALeer() {
-        return archivosALeer;
-    }
-
-    public void setArchivosALeer(File[] file) {
-        archivosALeer = file;
     }
 
     /**
@@ -278,17 +272,19 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarArchivosActionPerformed
-
+        
         fcSeleccionadorArchivos.setVisible(true);
         //[623, 397]        
         try {
             int option = fcSeleccionadorArchivos.showOpenDialog(this);
             switch (option) {
                 case JFileChooser.APPROVE_OPTION:
+                    for (File file : fcSeleccionadorArchivos.getSelectedFiles()) {
+                        lector.agregar_archivo(new Archivo(file));
+                    }
                     ocutarSeleccionadorArchivos();
-                    archivosALeer = fcSeleccionadorArchivos.getSelectedFiles();
-                    Inicio.NUEVOS_ARCHIVOS = true;
-                    //System.out.println(archivosALeer[0].getPath());
+                    //System.out.println(lector.getColaArchivos());
+                    this.mostrarArchivosAProcesar(lector.getColaArchivos());
                     break;
                 case JFileChooser.CANCEL_OPTION:
                     ocutarSeleccionadorArchivos();
@@ -306,7 +302,9 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeleccionarArchivosActionPerformed
 
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
-        Inicio.PROCESAMIENTO_INICIADO = true;
+        
+        lector.procesar_archivos();
+        this.mostrarPalabras(BasePalabra.obtenerTodasPalabras());
         pbProcesandoArchivos.setVisible(true);
     }//GEN-LAST:event_btnProcesarActionPerformed
 
@@ -314,7 +312,7 @@ public class Inicio extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
             JTable target = (JTable) evt.getSource();
             int row = target.getSelectedRow();
-            int column = target.getSelectedColumn();            
+            int column = target.getSelectedColumn();
             Inicio.MOSTRAR_DETALLE = true;
         }
     }//GEN-LAST:event_tblVocabularioMouseClicked

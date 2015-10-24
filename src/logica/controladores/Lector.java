@@ -1,15 +1,16 @@
 package logica.controladores;
 
-import logica.util.*;
-import logica.entidades.*;
-
+import ConeccionBD.Base;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.StringTokenizer;
+import logica.entidades.*;
+import logica.util.*;
+import presentacion.Inicio;
 
 /**
  *
@@ -18,7 +19,7 @@ import java.util.StringTokenizer;
  */
 public class Lector {
 
-    private File f;
+    private File f;    
     private SimpleList<Archivo> colaArchivos;
 
     public Lector() {
@@ -51,13 +52,27 @@ public class Lector {
         return archivos_procesados;
     }
 
+    public void agregar_archivos(Archivo[] archivos) {
+        for (Archivo archivo : archivos) {
+            agregar_archivo(archivo);
+        }
+    }
+
     /**
-     * Agrega una archivo a la cola para ser procesado si éste no esta ya en
-     * cola y devuelve true. Si ya esta en la cola, no lo agrega y devuelve
-     * false.
+     * Devuelve true si el archivo esta en a cola de archivos, de lo contrario
+     * devuelve false.
      *
      * @param a
      * @return
+     */
+    public boolean esta_en_cola(Archivo a) {
+        return colaArchivos.contains(a);
+    }
+
+    /**
+     * Agrega un archivo a la cola de archivos
+     *
+     * @param a
      */
     public boolean agregar_archivo(Archivo a) {
         if (!colaArchivos.contains(a)) {
@@ -73,7 +88,7 @@ public class Lector {
      *
      * @param archivo
      */
-    private void leer(Archivo archivo) {
+    public void leer(Archivo archivo) {
         //pensar
         this.iniciarArchivo(archivo.getRuta());
         //SimpleList<Palabra> palabras_pro = new SimpleList<>();
@@ -112,5 +127,15 @@ public class Lector {
             return true;
         }
         return false;
+    }
+
+    public static void main(String[] args) {
+
+        Base.clearDB();
+        Lector lectorArchivos = new Lector();
+        //SimpleList<Archivo> archivos = null;       
+        Inicio inicio = new Inicio(lectorArchivos);
+        inicio.setVisible(true);
+        
     }
 }
