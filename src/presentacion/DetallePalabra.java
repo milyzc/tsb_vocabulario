@@ -1,16 +1,37 @@
 package presentacion;
 
+import java.util.Iterator;
+import javax.swing.table.DefaultTableModel;
+import logica.entidades.Palabra;
+import logica.util.SimpleList;
+
 /**
  *
  * @author Tyncho
  * @version 1.0
  */
-public class DetallePalabra extends javax.swing.JFrame {    
+public class DetallePalabra extends javax.swing.JFrame {
+
     /**
      * Creates new form Presentacion
      */
     public DetallePalabra() {
         initComponents();
+        mostrarDetalles();
+    }
+
+    public void mostrarDetalles(SimpleList<Palabra> palabras) {
+        if (palabras != null) {
+            DefaultTableModel dtm = new DefaultTableModel();
+            dtm.setColumnIdentifiers(new String[]{"Palabra", "Frecuencia"});
+            Iterator<Palabra> it = palabras.iterator();
+            Palabra palabra = null;
+            while (it.hasNext()) {
+                palabra = it.next();
+                dtm.addRow(new Object[]{palabra.getDescripcion(), palabra.getCantidad()});
+            }
+            tblVocabulario.setModel(dtm);
+        }
     }
 
     /**

@@ -47,12 +47,22 @@ public class Lector {
     }
 
     /**
-     * Procesa la cola de archivos devoliendo una lista con todos los archivos
-     * procesados, si es que no hay archivos para procesar devuelve null;
-     *     
+     * Procesa un archivo insertandolo en la BD e inserta las palabras
+     * encontradas en la BD
+     *
+     * @param archivo
      */
-    public void procesar_archivos() {
-        
+    public boolean procesar_archivos(Archivo archivo) {
+        if (BaseArchivo.insertarArchivo(archivo)) {
+            archivo.setIdArchivo(BaseArchivo.obtenerIdArchivoPorRuta(archivo.getRuta()));
+            //System.out.println(LocalTime.now());
+            leer(archivo);
+            //System.out.println(LocalTime.now());
+            BasePalabra.insertarPalabra(archivo.getIdArchivo(), archivo.getPalabras());
+            //System.out.println(LocalTime.now());
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -153,7 +163,16 @@ public class Lector {
 
         Base.clearDB();
         Lector lectorArchivos = new Lector();
-        
+        File f = new File("p.txt");
+        try {
+            System.out.print(f.createNewFile());
+            String rutaBD = f.getAbsolutePath();
+            //System.out.print(rutaBD.);            
+
+            System.out.print(f.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //SimpleList<Archivo> archivos = null;       
         Inicio inicio = new Inicio(lectorArchivos);
         lectorArchivos.setInicio(inicio);
