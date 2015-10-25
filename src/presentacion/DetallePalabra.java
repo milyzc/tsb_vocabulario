@@ -33,7 +33,7 @@ public class DetallePalabra extends javax.swing.JFrame {
 
         label1.setText("label1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Detalle de Palabra");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,7 +89,6 @@ public class DetallePalabra extends javax.swing.JFrame {
                                 .addComponent(lblPalabraSeleccionada)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblAparicionesTotal)
                                 .addGap(83, 83, 83)))))
                 .addContainerGap())
