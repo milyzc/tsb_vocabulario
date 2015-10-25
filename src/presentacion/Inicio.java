@@ -1,5 +1,6 @@
 package presentacion;
 
+import ConeccionBD.BaseArchivo;
 import ConeccionBD.BasePalabra;
 import java.awt.HeadlessException;
 import java.io.File;
@@ -11,7 +12,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import logica.controladores.*;
 import logica.entidades.*;
-
+import java.time.*;
 import logica.util.*;
 
 /**
@@ -20,7 +21,7 @@ import logica.util.*;
  * @version 1.0
  */
 public class Inicio extends javax.swing.JFrame {
-    
+
     private Lector lector;
     public static boolean NUEVOS_ARCHIVOS = false;
     public static boolean PROCESAMIENTO_INICIADO = false;
@@ -73,7 +74,7 @@ public class Inicio extends javax.swing.JFrame {
                 palabra = it.next();
                 dtm.addRow(new Object[]{palabra.getDescripcion(), palabra.getCantidad()});
             }
-            tblArchivosAProcesar.setModel(dtm);
+            tblVocabulario.setModel(dtm);
             Inicio.PROCESAMIENTO_INICIADO = false;
         }
     }
@@ -272,7 +273,7 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarArchivosActionPerformed
-        
+
         fcSeleccionadorArchivos.setVisible(true);
         //[623, 397]        
         try {
@@ -302,8 +303,16 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeleccionarArchivosActionPerformed
 
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
-        
-        lector.procesar_archivos();
+        for (Archivo archivo : lector.getColaArchivos()) {
+            if (BaseArchivo.insertarArchivo(archivo)) {
+                archivo.setIdArchivo(BaseArchivo.obtenerIdArchivoPorRuta(archivo.getRuta()));
+                System.out.println(LocalTime.now());
+                lector.leer(archivo);
+                System.out.println(LocalTime.now());
+                BasePalabra.insertarPalabra(archivo.getIdArchivo(), archivo.getPalabras());
+                System.out.println(LocalTime.now());
+            }
+        }
         this.mostrarPalabras(BasePalabra.obtenerTodasPalabras());
         pbProcesandoArchivos.setVisible(true);
     }//GEN-LAST:event_btnProcesarActionPerformed

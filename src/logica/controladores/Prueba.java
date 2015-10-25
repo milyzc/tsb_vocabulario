@@ -1,9 +1,11 @@
 package logica.controladores;
 
-import logica.util.*;
-import logica.entidades.*;
+import ConeccionBD.Base;
+import java.time.Clock;
 
 import java.util.Scanner;
+import logica.entidades.*;
+import logica.util.*;
 
 /**
  *
@@ -23,7 +25,7 @@ public class Prueba {
 //        SimpleList<Archivo> archi_proce = lector.procesar_archivos();
 //        System.out.println(archi_proce.toString());
 //        System.out.println(lector.toString());
-        
+        Base.clearDB();
         
     }
 }
