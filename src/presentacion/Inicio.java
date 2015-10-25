@@ -1,7 +1,5 @@
 package presentacion;
 
-import ConeccionBD.BaseArchivo;
-import ConeccionBD.BasePalabra;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.util.Iterator;
@@ -10,10 +8,13 @@ import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import java.time.*;
+
 import logica.controladores.*;
 import logica.entidades.*;
-import java.time.*;
 import logica.util.*;
+import ConeccionBD.BaseArchivo;
+import ConeccionBD.BasePalabra;
 
 /**
  *
@@ -22,13 +23,15 @@ import logica.util.*;
  */
 public class Inicio extends javax.swing.JFrame {
 
-    private Lector lector;
+    private final Lector lector;
     public static boolean NUEVOS_ARCHIVOS = false;
     public static boolean PROCESAMIENTO_INICIADO = false;
     public static boolean MOSTRAR_DETALLE = false;
 
     /**
      * Creates new form Principal
+     *
+     * @param controlador
      */
     public Inicio(Lector controlador) {
         initComponents();
@@ -307,10 +310,12 @@ public class Inicio extends javax.swing.JFrame {
                 lector.leer(archivo);
                 System.out.println(LocalTime.now());
                 BasePalabra.insertarPalabra(archivo.getIdArchivo(), archivo.getPalabras());
-                System.out.println(LocalTime.now());
+                System.out.println(LocalTime.now());                
+                
             }
         }
-        this.mostrarPalabras(BasePalabra.obtenerTodasPalabras());
+        mostrarPalabras(BasePalabra.obtenerTodasPalabras());
+        System.out.println(LocalTime.now());
         pbProcesandoArchivos.setVisible(true);
     }//GEN-LAST:event_btnProcesarActionPerformed
 

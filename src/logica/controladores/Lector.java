@@ -1,16 +1,18 @@
 package logica.controladores;
 
 import ConeccionBD.Base;
+import ConeccionBD.BaseArchivo;
+import ConeccionBD.BasePalabra;
+import logica.util.*;
+import logica.entidades.*;
+import presentacion.Inicio;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
+import java.time.LocalTime;
 import java.util.StringTokenizer;
-import logica.entidades.*;
-import logica.util.*;
-import presentacion.Inicio;
 
 /**
  *
@@ -19,11 +21,13 @@ import presentacion.Inicio;
  */
 public class Lector {
 
-    private File f;    
+    private File f;
     private SimpleList<Archivo> colaArchivos;
+    private Inicio inicio;
 
     public Lector() {
         colaArchivos = new SimpleList<>();
+        inicio = null;
     }
 
     public SimpleList<Archivo> getColaArchivos() {
@@ -34,24 +38,40 @@ public class Lector {
         colaArchivos = archivos;
     }
 
+    public Inicio getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(Inicio inicio) {
+        this.inicio = inicio;
+    }
+
+    /**
+     * Procesa la cola de archivos devoliendo una lista con todos los archivos
+     * procesados, si es que no hay archivos para procesar devuelve null;
+     *     
+     */
+    public void procesar_archivos() {
+        
+    }
+
     /**
      * Procesa la cola de archivos devoliendo una lista con todos los archivos
      * procesados, si es que no hay archivos para procesar devuelve null;
      *
      * @return
      */
-    public SimpleList<Archivo> procesar_archivos() {
-        SimpleList<Archivo> archivos_procesados = null;
-        if (this.hay_archivos()) {
-            archivos_procesados = new SimpleList<>();
-            for (Archivo archivo : colaArchivos) {
-                this.leer(archivo);
-                archivos_procesados.addFirst(archivo);
-            }
-        }
-        return archivos_procesados;
-    }
-
+//    public SimpleList<Archivo> procesar_archivos() {
+//        SimpleList<Archivo> archivos_procesados = null;
+//        if (this.hay_archivos()) {
+//            archivos_procesados = new SimpleList<>();
+//            for (Archivo archivo : colaArchivos) {
+//                this.leer(archivo);
+//                archivos_procesados.addFirst(archivo);
+//            }
+//        }
+//        return archivos_procesados;
+//    }
     public void agregar_archivos(Archivo[] archivos) {
         for (Archivo archivo : archivos) {
             agregar_archivo(archivo);
@@ -133,9 +153,20 @@ public class Lector {
 
         Base.clearDB();
         Lector lectorArchivos = new Lector();
+        File f = new File("p.txt");
+        try {
+            System.out.print(f.createNewFile());
+            String rutaBD = f.getAbsolutePath();
+            //System.out.print(rutaBD.);            
+            
+            System.out.print(f.getAbsolutePath());
+        }catch(IOException e){
+            e.printStackTrace();
+        }        
         //SimpleList<Archivo> archivos = null;       
         Inicio inicio = new Inicio(lectorArchivos);
+        lectorArchivos.setInicio(inicio);
         inicio.setVisible(true);
-        
+
     }
 }
