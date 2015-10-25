@@ -190,17 +190,16 @@ public class BasePalabra extends Base {
                 if (BaseArchivo.existeArchivo(id)) {
 
                     String insertPalabra = "Insert into Palabra Values ";
+
                     int tam = insertPalabra.length();
                     for (Palabra p : slp) {
                         String palabra = p.getDescripcion();
                         int con = p.getCantidad();
-
+                        String insertPXA = "Insert into PalabrasXArchivo Values (" + id + ", " + "\"" + palabra + "\"" + ", " + con + " )";
+                        s.execute(insertPXA);
                         if (!existePalabra(p.getDescripcion())) {
 
                             insertPalabra += " (" + "\"" + palabra + "\"" + ", " + con + " ),";
-                            String insertPXA = "Insert into PalabrasXArchivo Values (" + id + ", " + "\"" + palabra + "\"" + ", " + con + " )";
-
-                            s.execute(insertPXA);
 
                         } else {
 
@@ -210,9 +209,6 @@ public class BasePalabra extends Base {
 
                             String update = "Update Palabra Set contadorTotal = " + c + " Where palabra Like '" + palabra + "'";
                             s.executeUpdate(update);
-                            String insertPXA = "Insert into PalabrasXArchivo Values (" + id + ", " + "\"" + palabra + "\"" + ", " + con + " )";
-                            s.execute(insertPXA);
-
                         }
                     }
                     if (tam != insertPalabra.length()) {
@@ -220,7 +216,6 @@ public class BasePalabra extends Base {
                         System.out.println(insertPalabra);
                         s.execute(insertPalabra);
                     }
-                    
                 }
             } catch (Exception e) {
                 System.out.println(e.getClass() + " - " + e.getMessage());
