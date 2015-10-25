@@ -153,16 +153,7 @@ public class Lector {
 
         Base.clearDB();
         Lector lectorArchivos = new Lector();
-        File f = new File("p.txt");
-        try {
-            System.out.print(f.createNewFile());
-            String rutaBD = f.getAbsolutePath();
-            //System.out.print(rutaBD.);            
-            
-            System.out.print(f.getAbsolutePath());
-        }catch(IOException e){
-            e.printStackTrace();
-        }        
+        
         //SimpleList<Archivo> archivos = null;       
         Inicio inicio = new Inicio(lectorArchivos);
         lectorArchivos.setInicio(inicio);

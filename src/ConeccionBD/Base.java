@@ -15,9 +15,9 @@ import java.io.File;
 public abstract class Base {
 
 //MILI
-    private final static String stringConeccion = "jdbc:sqlite:E:\\TSB\\tsb_vocabulario\\src\\BD\\DB.sqlite";
+//    private final static String stringConeccion = "jdbc:sqlite:E:\\TSB\\tsb_vocabulario\\src\\BD\\DB.sqlite";
 //EMI
-//private final static String stringConeccion = "jdbc:sqlite:C:\\Users\\Emiliano\\Desktop\\TSB - TPI - Repositorio\\tsb_vocabulario\\src\\BD\\DB.sqlite";
+private final static String stringConeccion = "jdbc:sqlite:C:\\Users\\Emiliano\\Desktop\\TSB - TPI - Repositorio\\tsb_vocabulario\\src\\BD\\DB.sqlite";
 
 //Por Ahora todos los metodos funcionan con tipos de datos simples como parametros. 
 //Cuando este resuelto lo de entidades funcionaran con los objetos como parametros.    
@@ -27,8 +27,9 @@ public abstract class Base {
         try {
 
             Class.forName("org.sqlite.JDBC");
+            
             conn = DriverManager.getConnection(stringConeccion);
-
+            
         } catch (Exception e) {
             System.out.println(e.getClass() + " - " + e.getMessage());
         }

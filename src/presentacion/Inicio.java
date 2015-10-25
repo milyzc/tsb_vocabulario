@@ -10,6 +10,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import java.time.*;
 
+
 import logica.controladores.*;
 import logica.entidades.*;
 import logica.util.*;
@@ -183,7 +184,7 @@ public class Inicio extends javax.swing.JFrame {
         lblVocabulario.setText("Vocabulario");
 
         fcSeleccionadorArchivos.setAcceptAllFileFilterUsed(false);
-        fcSeleccionadorArchivos.setCurrentDirectory(new java.io.File("E:\\TSB\\tsb_vocabulario\\res"));
+        fcSeleccionadorArchivos.setCurrentDirectory(new java.io.File("C:\\Users\\Emiliano\\Desktop\\TSB - TPI - Repositorio\\tsb_vocabulario\\res"));
 
         tblArchivosAProcesar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -303,19 +304,18 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeleccionarArchivosActionPerformed
 
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
+                 LocalTime lt1 = LocalTime.now();
+                 
         for (Archivo archivo : lector.getColaArchivos()) {
             if (BaseArchivo.insertarArchivo(archivo)) {
                 archivo.setIdArchivo(BaseArchivo.obtenerIdArchivoPorRuta(archivo.getRuta()));
-                System.out.println(LocalTime.now());
                 lector.leer(archivo);
-                System.out.println(LocalTime.now());
                 BasePalabra.insertarPalabra(archivo.getIdArchivo(), archivo.getPalabras());
-                System.out.println(LocalTime.now());                
-                
-            }
+                 }
         }
         mostrarPalabras(BasePalabra.obtenerTodasPalabras());
-        System.out.println(LocalTime.now());
+                
+                System.out.println("inicio: " + lt1 +" y termino en: " + LocalTime.now());
         pbProcesandoArchivos.setVisible(true);
     }//GEN-LAST:event_btnProcesarActionPerformed
 
