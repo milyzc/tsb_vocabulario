@@ -349,8 +349,8 @@ public class Inicio extends javax.swing.JFrame {
                 try {
                     String palabra = tblVocabulario.getModel().getValueAt(fila, 0).toString();
                     System.out.println(palabra);
-                    DetallePalabra dp = new DetallePalabra();
-                    dp.setVisible(true);
+//                    DetallePalabra dp = new DetallePalabra();
+//                    dp.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -364,9 +364,9 @@ public class Inicio extends javax.swing.JFrame {
         if (fila >= 0) {
             try {
                 String palabra = tblVocabulario.getModel().getValueAt(fila, 0).toString();
-                System.out.println(palabra);
-                DetallePalabra dp = new DetallePalabra();
-                dp.setVisible(true);
+                System.out.println(palabra);                
+                //DetallePalabra dp = new DetallePalabra(BasePalabra.obtenerArchivosPorPalabra(palabra));
+                //dp.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }

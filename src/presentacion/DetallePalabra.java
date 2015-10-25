@@ -15,9 +15,9 @@ public class DetallePalabra extends javax.swing.JFrame {
     /**
      * Creates new form Presentacion
      */
-    public DetallePalabra() {
+    public DetallePalabra(SimpleList<Palabra> palabras) {
         initComponents();
-        mostrarDetalles();
+        mostrarDetalles(palabras);
     }
 
     public void mostrarDetalles(SimpleList<Palabra> palabras) {
@@ -30,7 +30,7 @@ public class DetallePalabra extends javax.swing.JFrame {
                 palabra = it.next();
                 dtm.addRow(new Object[]{palabra.getDescripcion(), palabra.getCantidad()});
             }
-            tblVocabulario.setModel(dtm);
+            
         }
     }
 
