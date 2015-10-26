@@ -39,7 +39,7 @@ public class Inicio extends javax.swing.JFrame {
         tblVocabulario.setEnabled(true);
         tblArchivosAProcesar.setEnabled(false);
         btnDetallePalabra.setEnabled(false);
-
+        btnProcesar.setEnabled(false);
         mostrarPalabras(BasePalabra.obtenerTodasPalabras());
         this.setBackground(Color.CYAN);
 //        habilitarProcesamiento();
@@ -362,10 +362,12 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnSeleccionarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarArchivosActionPerformed
         this.seleccionarArchivos();
+        this.btnProcesar.setEnabled(true);
     }//GEN-LAST:event_btnSeleccionarArchivosActionPerformed
 
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
        //si hay archivos seleccionados proceso.
+        this.btnProcesar.setEnabled(false);
         if(lector.getColaArchivos().size()!=0)
        {(new ProgressBarInt(lector)).setVisible(true);
         dispose();}
