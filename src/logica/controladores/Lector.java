@@ -65,6 +65,10 @@ public class Lector {
         return false;
     }
 
+    public void vaciarCola() {
+        colaArchivos.clear();
+    }
+
     /**
      * Procesa la cola de archivos devoliendo una lista con todos los archivos
      * procesados, si es que no hay archivos para procesar devuelve null;
@@ -106,7 +110,7 @@ public class Lector {
      */
     public boolean agregar_archivo(Archivo a) {
         if (!colaArchivos.contains(a)) {
-            colaArchivos.addLast(a);
+            colaArchivos.addFirst(a);
             return true;
         }
         return false;
@@ -161,19 +165,22 @@ public class Lector {
 
     public static void main(String[] args) {
 
-        Base.clearDB();
+        
         Lector lectorArchivos = new Lector();
-        File f = new File("p.txt");
-        try {
-            System.out.print(f.createNewFile());
-            String rutaBD = f.getAbsolutePath();
-            //System.out.print(rutaBD.);            
-
-            System.out.print(f.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        File f = new File("p.txt");
+//        try {
+//            System.out.print(f.createNewFile());
+//            String rutaBD = f.getAbsolutePath();
+//            //System.out.print(rutaBD.);            
+//            rutaBD = rutaBD.substring(0, rutaBD.length() - 6);
+//            System.out.println(rutaBD);
+//            System.out.print(rutaBD + "\\tsb_vocabulario\\BD\\DB.sqlite");
+//            //Base.stringConeccion = rutaBD + "\\tsb_vocabulario\\BD\\DB.sqlite";
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         //SimpleList<Archivo> archivos = null;       
+        Base.clearDB();
         Inicio inicio = new Inicio(lectorArchivos);
         lectorArchivos.setInicio(inicio);
         inicio.setVisible(true);

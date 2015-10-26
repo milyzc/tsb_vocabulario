@@ -66,18 +66,20 @@ public class BasePalabra extends Base {
         return false;
     }
 
-    public static SimpleList<String> obtenerArchivosPorPalabra(String p) {
+    public static SimpleList<Tuple> obtenerArchivosPorPalabra(String p) {
         try {
-            SimpleList<String> listaArchivos = new SimpleList<>();
+
+            SimpleList<Tuple> listaArchivos = new SimpleList<>();
             Connection conn = Base.getConeccion();
             Statement s = Base.getStatement(conn);
-            String query = "Select Archivo.nombre From Archivo, PalabrasXArchivo Where PalabrasXArchivo.palabra Like ('" + p + "')";
+            String query = "Select Archivo.nombre,PalabrasXArchivo.contadorParcial "
+                    + "From Archivo, PalabrasXArchivo Where PalabrasXArchivo.palabra Like ('" + p + "')";
             query += " and PalabrasXArchivo.idArchivo = Archivo.idArchivo";
             ResultSet rs = s.executeQuery(query);
 
             while (rs.next()) {
-                String nodo = rs.getString("nombre");
-                listaArchivos.addFirst(nodo);
+                Tuple<String, Integer> tp = new Tuple<>(rs.getString("nombre"), rs.getInt("contadorParcial"));
+                listaArchivos.addFirst(tp);
             }
             s.close();
             conn.close();
@@ -87,7 +89,12 @@ public class BasePalabra extends Base {
         return null;
     }
 
-//Devuelve un String con cada una de las palabras que tenga a p como raiz, devuelve su contadorTotal y los archivos en los que aparece.
+    /**
+     * Devuelve un String con cada una de las palabras que tenga a p como raiz, 
+     * devuelve su contadorTotal.
+     * @param p
+     * @return 
+     */
     public static SimpleList<Palabra> buscarPalabras(String p) {
         try {
 
@@ -141,33 +148,33 @@ public class BasePalabra extends Base {
             try {
 //                if (BaseArchivo.existeArchivo(id)) {
 
-                    String insertPalabra = "Insert into Palabra Values ";
+                String insertPalabra = "Insert into Palabra Values ";
 
-                    int tam = insertPalabra.length();
-                    for (Palabra p : slp) {
-                        String palabra = p.getDescripcion();
-                        int con = p.getCantidad();
-                        String insertPXA = "Insert into PalabrasXArchivo Values (" + id + ", " + "\"" + palabra + "\"" + ", " + con + " )";
-                        s.execute(insertPXA);
-                        if (!existePalabra(p.getDescripcion())) {
+                int tam = insertPalabra.length();
+                for (Palabra p : slp) {
+                    String palabra = p.getDescripcion();
+                    int con = p.getCantidad();
+                    String insertPXA = "Insert into PalabrasXArchivo Values (" + id + ", " + "\"" + palabra + "\"" + ", " + con + " )";
+                    s.execute(insertPXA);
+                    if (!existePalabra(p.getDescripcion())) {
 
-                            insertPalabra += " (" + "\"" + palabra + "\"" + ", " + con + " ),";
+                        insertPalabra += " (" + "\"" + palabra + "\"" + ", " + con + " ),";
 
-                        } else {
+                    } else {
 
-                            Palabra pal = obtenerPalabra(palabra);
-                            int c = pal.getCantidad();
-                            c += con;
+                        Palabra pal = obtenerPalabra(palabra);
+                        int c = pal.getCantidad();
+                        c += con;
 
-                            String update = "Update Palabra Set contadorTotal = " + c + " Where palabra Like '" + palabra + "'";
-                            s.executeUpdate(update);
-                        }
+                        String update = "Update Palabra Set contadorTotal = " + c + " Where palabra Like '" + palabra + "'";
+                        s.executeUpdate(update);
                     }
-                    if (tam != insertPalabra.length()) {
-                        insertPalabra = insertPalabra.substring(0, insertPalabra.length() - 1);
+                }
+                if (tam != insertPalabra.length()) {
+                    insertPalabra = insertPalabra.substring(0, insertPalabra.length() - 1);
 
-                        s.executeUpdate(insertPalabra);
-                    }
+                    s.executeUpdate(insertPalabra);
+                }
                 //}
             } catch (Exception e) {
                 System.out.println(e.getClass() + " - " + e.getMessage());

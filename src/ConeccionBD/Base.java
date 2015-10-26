@@ -15,7 +15,7 @@ import java.io.File;
 public abstract class Base {
 
 //MILI
-    private final static String stringConeccion = "jdbc:sqlite:E:\\TSB\\tsb_vocabulario\\src\\BD\\DB.sqlite";
+    public static String stringConeccion = "jdbc:sqlite:E:\\TSB\\tsb_vocabulario\\src\\BD\\DB.sqlite";
 //EMI
 //private final static String stringConeccion = "jdbc:sqlite:C:\\Users\\Emiliano\\Desktop\\TSB - TPI - Repositorio\\tsb_vocabulario\\src\\BD\\DB.sqlite";
 
@@ -27,9 +27,9 @@ public abstract class Base {
         try {
 
             Class.forName("org.sqlite.JDBC");
-            
+
             conn = DriverManager.getConnection(stringConeccion);
-            
+
         } catch (Exception e) {
             System.out.println(e.getClass() + " - " + e.getMessage());
         }
@@ -41,6 +41,8 @@ public abstract class Base {
         Statement s = null;
         try {
             s = c.createStatement();
+            s.executeQuery("PRAGMA syncronous=OFF");
+            s.executeQuery("PRAGMA journal_mode=MEMORY");
         } catch (Exception ex) {
         }
         return s;

@@ -35,7 +35,7 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         configurarSeleccionadorArchivos();
         lector = controlador;
-        tblVocabulario.setEnabled(false);
+        tblVocabulario.setEnabled(true);
         tblArchivosAProcesar.setEnabled(false);
         mostrarPalabras(BasePalabra.obtenerTodasPalabras());
         pbProcesandoArchivos.setVisible(false);
@@ -49,7 +49,12 @@ public class Inicio extends javax.swing.JFrame {
      * @param colaArchivos
      */
     public void mostrarArchivosAProcesar(SimpleList<Archivo> colaArchivos) {
-        DefaultTableModel dtm = new DefaultTableModel();
+        DefaultTableModel dtm = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         dtm.setColumnIdentifiers(new String[]{"Nombre", "Ruta"});
         Iterator<Archivo> it = colaArchivos.iterator();
         Archivo archivo = null;
@@ -68,7 +73,14 @@ public class Inicio extends javax.swing.JFrame {
      */
     public void mostrarPalabras(SimpleList<Palabra> palabras) {
         if (palabras != null) {
-            DefaultTableModel dtm = new DefaultTableModel();            
+            DefaultTableModel dtm = new DefaultTableModel() {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+
+            };
             dtm.setColumnIdentifiers(new String[]{"Palabra", "Frecuencia"});
             Iterator<Palabra> it = palabras.iterator();
             Palabra palabra = null;
@@ -176,7 +188,11 @@ public class Inicio extends javax.swing.JFrame {
 
         lblBuscar.setText("Buscar");
 
-        txtBuscar.setText("textField1");
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
 
         lblVocabulario.setName(""); // NOI18N
         lblVocabulario.setText("Vocabulario");
@@ -330,7 +346,8 @@ public class Inicio extends javax.swing.JFrame {
         for (Archivo archivo : lector.getColaArchivos()) {
             lector.procesar_archivos(archivo);
         }
-        System.out.println("inicio: " + lt1 +" y termino en: " + LocalTime.now());
+        lector.vaciarCola();
+        System.out.println("inicio: " + lt1 + " y termino en: " + LocalTime.now());
         limpiarArchivosSeleccionados();
         mostrarPalabras(BasePalabra.obtenerTodasPalabras());
         JOptionPane.showMessageDialog(null, "Archivos Procesados", "Resultados", JOptionPane.INFORMATION_MESSAGE);
@@ -362,17 +379,21 @@ public class Inicio extends javax.swing.JFrame {
     private void btnDetallePalabraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallePalabraActionPerformed
         int fila = tblVocabulario.getSelectedRow();
         if (fila >= 0) {
-            try {
-                String palabra = tblVocabulario.getModel().getValueAt(fila, 0).toString();
-                System.out.println(palabra);                
-                //DetallePalabra dp = new DetallePalabra(BasePalabra.obtenerArchivosPorPalabra(palabra));
-                //dp.setVisible(true);
+            try {                
+                Palabra p = new Palabra(tblVocabulario.getModel().getValueAt(fila, 0).toString());
+                p.setCantidad((int)tblVocabulario.getModel().getValueAt(fila, 1));
+                DetallePalabra dp = new DetallePalabra(p,BasePalabra.obtenerArchivosPorPalabra(p.getDescripcion()));
+                dp.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         System.out.println(fila + " <- fila ");
     }//GEN-LAST:event_btnDetallePalabraActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        mostrarPalabras(BasePalabra.buscarPalabras(txtBuscar.getText().trim()));
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
     /**
      * @param args the command line arguments
