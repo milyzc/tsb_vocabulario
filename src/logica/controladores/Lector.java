@@ -156,7 +156,7 @@ public class Lector {
         return "Lector{" + "f=" + f + ", colaArchivos=" + colaArchivos.toString() + '}';
     }
 
-    private boolean hay_archivos() {
+    public boolean hay_archivos() {
         if (!this.colaArchivos.isEmpty()) {
             return true;
         }

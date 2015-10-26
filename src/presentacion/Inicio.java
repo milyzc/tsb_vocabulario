@@ -16,6 +16,7 @@ import logica.entidades.*;
 import logica.util.*;
 import ConeccionBD.BaseArchivo;
 import ConeccionBD.BasePalabra;
+import java.awt.Color;
 
 /**
  *
@@ -33,12 +34,15 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio(Lector controlador) {
         initComponents();
+        this.setMaximizedBounds(this.getBounds());
         configurarSeleccionadorArchivos();
         lector = controlador;
         tblVocabulario.setEnabled(true);
         tblArchivosAProcesar.setEnabled(false);
-        mostrarPalabras(BasePalabra.obtenerTodasPalabras());
-        pbProcesandoArchivos.setVisible(false);
+        btnDetallePalabra.setEnabled(false);
+        mostrarPalabras(BasePalabra.obtenerTodasPalabras());        
+        this.setBackground(Color.CYAN);
+        habilitarProcesamiento();
     }
 
     /**
@@ -119,8 +123,6 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSeleccionarArchivos = new java.awt.Button();
-        btnProcesar = new java.awt.Button();
         lblArchivosAProcesar = new java.awt.Label();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVocabulario = new javax.swing.JTable();
@@ -132,25 +134,12 @@ public class Inicio extends javax.swing.JFrame {
         tblArchivosAProcesar = new javax.swing.JTable();
         pbProcesandoArchivos = new javax.swing.JProgressBar();
         btnDetallePalabra = new javax.swing.JButton();
+        btnSeleccionarArchivos = new javax.swing.JButton();
+        btnProcesar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TSB Vocabulario");
         setName("jfPrincipal"); // NOI18N
-
-        btnSeleccionarArchivos.setLabel("Seleccionar");
-        btnSeleccionarArchivos.setName("btnSeleccionarArchivos"); // NOI18N
-        btnSeleccionarArchivos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarArchivosActionPerformed(evt);
-            }
-        });
-
-        btnProcesar.setLabel("Procesar");
-        btnProcesar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProcesarActionPerformed(evt);
-            }
-        });
 
         lblArchivosAProcesar.setName(""); // NOI18N
         lblArchivosAProcesar.setText("Archivos a procesar");
@@ -234,78 +223,103 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        btnSeleccionarArchivos.setText("Seleccionar Archivos");
+        btnSeleccionarArchivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarArchivosActionPerformed(evt);
+            }
+        });
+
+        btnProcesar.setText("Procesar");
+        btnProcesar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcesarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblVocabulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(641, 641, 641)
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(229, 229, 229)
+                                .addComponent(btnDetallePalabra))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblVocabulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(fcSeleccionadorArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btnSeleccionarArchivos)
+                                .addGap(54, 54, 54)
+                                .addComponent(btnProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(lblArchivosAProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(244, 244, 244))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(330, 330, 330)
-                                .addComponent(fcSeleccionadorArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDetallePalabra)
-                        .addGap(398, 398, 398))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 817, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pbProcesandoArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSeleccionarArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73)
-                        .addComponent(btnProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pbProcesandoArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblArchivosAProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblVocabulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnSeleccionarArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblVocabulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pbProcesandoArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(3, 3, 3))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(8, 8, 8))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnDetallePalabra)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblArchivosAProcesar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fcSeleccionadorArchivos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pbProcesandoArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fcSeleccionadorArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnDetallePalabra)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnProcesar)
+                            .addComponent(btnSeleccionarArchivos))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSeleccionarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarArchivosActionPerformed
+    /**
+     * Permite seleccionar archivos
+     */
+    public void seleccionarArchivos() {
         fcSeleccionadorArchivos.setVisible(true);
         try {
             int option = fcSeleccionadorArchivos.showOpenDialog(this);
@@ -330,7 +344,16 @@ public class Inicio extends javax.swing.JFrame {
         } catch (HeadlessException e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_btnSeleccionarArchivosActionPerformed
+    }
+
+    private void habilitarProcesamiento() {
+        if (lector.hay_archivos()) {
+            btnProcesar.setEnabled(true);
+        } else {
+            btnProcesar.setEnabled(false);
+        }
+
+    }
 
     /**
      * Limpia la grilla de archivos procesador.
@@ -341,48 +364,42 @@ public class Inicio extends javax.swing.JFrame {
         this.tblArchivosAProcesar.setModel(dtm);
     }
 
-    private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
-        LocalTime lt1 = LocalTime.now();
+    /**
+     * Procesa los archivos de la cola de archivos.
+     */
+    public void procesarArchivos() {               
+        LocalTime lt1 = LocalTime.now();                                
+        this.pbProcesandoArchivos.setIndeterminate(true);        
         for (Archivo archivo : lector.getColaArchivos()) {
-            lector.procesar_archivos(archivo);
+            lector.procesar_archivos(archivo);                                   
         }
+        this.pbProcesandoArchivos.setIndeterminate(false);        
         lector.vaciarCola();
         System.out.println("inicio: " + lt1 + " y termino en: " + LocalTime.now());
         limpiarArchivosSeleccionados();
         mostrarPalabras(BasePalabra.obtenerTodasPalabras());
-        JOptionPane.showMessageDialog(null, "Archivos Procesados", "Resultados", JOptionPane.INFORMATION_MESSAGE);
-        pbProcesandoArchivos.setVisible(true);
-    }//GEN-LAST:event_btnProcesarActionPerformed
+        JOptionPane.showMessageDialog(null, "Archivos Procesados", "Resultados", JOptionPane.INFORMATION_MESSAGE);        
+    }
 
     /**
      *
      * @param evt
      */
     private void tblVocabularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVocabularioMouseClicked
-        if (evt.getClickCount() == 2) {
-            System.out.println("entré");
-            int fila = tblVocabulario.getSelectedRow();
-            if (fila >= 0) {
-                try {
-                    String palabra = tblVocabulario.getModel().getValueAt(fila, 0).toString();
-                    System.out.println(palabra);
-//                    DetallePalabra dp = new DetallePalabra();
-//                    dp.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        if (evt.getClickCount() == 1) {
+            if (tblVocabulario.getSelectedRow() != -1) {
+                btnDetallePalabra.setEnabled(true);
             }
-            System.out.println(fila + " <- fila ");
         }
     }//GEN-LAST:event_tblVocabularioMouseClicked
 
     private void btnDetallePalabraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallePalabraActionPerformed
         int fila = tblVocabulario.getSelectedRow();
         if (fila >= 0) {
-            try {                
+            try {
                 Palabra p = new Palabra(tblVocabulario.getModel().getValueAt(fila, 0).toString());
-                p.setCantidad((int)tblVocabulario.getModel().getValueAt(fila, 1));
-                DetallePalabra dp = new DetallePalabra(p,BasePalabra.obtenerArchivosPorPalabra(p.getDescripcion()));
+                p.setCantidad((int) tblVocabulario.getModel().getValueAt(fila, 1));
+                DetallePalabra dp = new DetallePalabra(p, BasePalabra.obtenerArchivosPorPalabra(p.getDescripcion()));
                 dp.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -395,13 +412,23 @@ public class Inicio extends javax.swing.JFrame {
         mostrarPalabras(BasePalabra.buscarPalabras(txtBuscar.getText().trim()));
     }//GEN-LAST:event_txtBuscarKeyReleased
 
+    private void btnSeleccionarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarArchivosActionPerformed
+        this.seleccionarArchivos();
+        this.habilitarProcesamiento();
+    }//GEN-LAST:event_btnSeleccionarArchivosActionPerformed
+
+    private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
+        btnProcesar.setEnabled(false);
+        this.procesarArchivos();        
+    }//GEN-LAST:event_btnProcesarActionPerformed
+
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDetallePalabra;
-    private java.awt.Button btnProcesar;
-    private java.awt.Button btnSeleccionarArchivos;
+    private javax.swing.JButton btnProcesar;
+    private javax.swing.JButton btnSeleccionarArchivos;
     private javax.swing.JFileChooser fcSeleccionadorArchivos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

@@ -18,7 +18,12 @@ import logica.entidades.Archivo;
  */
 public class BaseArchivo extends Base {
 
-    //Devuelve True si el archivo seleccionado ya existe en la base de datos buscando por ruta. False si no existe
+    /**
+     * Devuelve True si el archivo seleccionado ya existe en la base de datos 
+     * buscando por ruta. False si no existe
+     * @param ruta
+     * @return 
+     */
     public static boolean existeArchivo(String ruta) {
         boolean e = false;
 
@@ -37,13 +42,18 @@ public class BaseArchivo extends Base {
             s.close();
             conn.close();
         } catch (Exception ex) {
-            System.out.println(ex.getClass() + " - " + ex.getMessage());
+            //System.out.println(ex.getClass() + " - " + ex.getMessage());
         }
 
         return e;
     }
 
-//Devuelve True si el archivo seleccionado ya existe en la base de datos Buscando por id. False si no existe
+    /**
+     * Devuelve True si el archivo seleccionado ya existe en la base de datos 
+     * Buscando por id. False si no existe
+     * @param id
+     * @return 
+     */
     public static boolean existeArchivo(int id) {
         boolean e = false;
 
@@ -62,13 +72,18 @@ public class BaseArchivo extends Base {
             s.close();
             conn.close();
         } catch (Exception ex) {
-            System.out.println(ex.getClass() + " - " + ex.getMessage());
+            //System.out.println(ex.getClass() + " - " + ex.getMessage());
         }
 
         return e;
     }
 
-//Verifica que el archivo a insertar, no exista en la base de datos, en ese caso lo inserta y devuelve true. De otro modo devuelve false.
+    /**
+     * Verifica que el archivo a insertar, no exista en la base de datos, 
+     * en ese caso lo inserta y devuelve true. De otro modo devuelve false.
+     * @param a
+     * @return 
+     */
     public static boolean insertarArchivo(Archivo a) {
 
         try {
@@ -96,13 +111,16 @@ public class BaseArchivo extends Base {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e.getClass() + " - " + e.getMessage());
+            //System.out.println(e.getClass() + " - " + e.getMessage());
         }
 
         return false;
     }
 
-//Devuelve todo lo que hay en la tabla Archivo;
+    /**
+     * Devuelve todo lo que hay en la tabla Archivo;
+     * @return 
+     */
     public static StringBuilder seleccionarTodoArchivo() {
         try {
             StringBuilder sb = new StringBuilder();
@@ -125,19 +143,23 @@ public class BaseArchivo extends Base {
             conn.close();
             return sb;
         } catch (Exception e) {
-            System.out.println(e.getClass() + " - " + e.getMessage());
+            //System.out.println(e.getClass() + " - " + e.getMessage());
         }
         return null;
     }
 
-//Devuelve el Id del Archivo que contenga la ruta pasada por parametro.
+    /**
+     * Devuelve el Id del Archivo que contenga la ruta pasada por parametro.
+     * @param ruta
+     * @return 
+     */
     public static int obtenerIdArchivoPorRuta(String ruta) {
         try {
             if (existeArchivo(ruta)) {
                 Connection conn = getConeccion();
                 Statement s = getStatement(conn);
                 String query = "Select Archivo.idArchivo FROM Archivo Where ruta Like '" + ruta + "'";
-                System.out.println(query);
+                //System.out.println(query);
                 ResultSet rs = s.executeQuery(query);
                 int idArchivo = rs.getInt("idArchivo");
                 s.close();
@@ -149,24 +171,11 @@ public class BaseArchivo extends Base {
         return -1;
     }
 
-//Devuelve todas las palabras que hay en un Archivo  @param id;
-//public static ResultSet seleccionarTodasPalabrasDeUnArchivo(int id)
-//{
-//      try
-//    {   
-//        Connection con = getConeccion();
-//        Statement s = getStatement(con);
-//        String Query = "Select * From PalabrasXArchivo Where idArchivo = " + id;
-//        ResultSet rs = s.executeQuery(Query);
-//        s.close();
-//        con.close();
-//        return rs;
-//    }
-//    catch(Exception e){System.out.println(e.getClass() + " - " + e.getMessage());}
-//    return null;
-//}
-//
-//Obtiene el ultimo id de Archivo, para incrementarlo en el proximo insert;
+
+    /**
+     * Obtiene el ultimo id de Archivo, para incrementarlo en el proximo insert;
+     * @return 
+     */
     public static int obtenerUltimoIdArchivo() {
         int ultimoID = -1;
         try {

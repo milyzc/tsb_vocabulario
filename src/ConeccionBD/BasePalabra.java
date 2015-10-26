@@ -5,7 +5,6 @@
  */
 package ConeccionBD;
 
-import ConeccionBD.BaseArchivo;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -21,7 +20,11 @@ import logica.util.*;
  */
 public class BasePalabra extends Base {
 
-    //Devuelve un Objeto Palabra si es que existe.
+    /**
+     * Devuelve un Objeto Palabra si es que existe.
+     * @param p
+     * @return 
+     */
     public static Palabra obtenerPalabra(String p) {
         try {
             if (existePalabra(p)) {
@@ -38,13 +41,17 @@ public class BasePalabra extends Base {
                 return pal;
             }
         } catch (Exception e) {
-            System.out.println(e.getClass() + " - " + e.getMessage());
+            //System.out.println(e.getClass() + " - " + e.getMessage());
         }
         return null;
 
     }
 
-//Devuelve true si existe la palabra, y false sino existe.
+    /**
+     * Devuelve true si existe la palabra, y false sino existe.
+     * @param p
+     * @return 
+     */
     public static boolean existePalabra(String p) {
         try {
             Connection conn = getConeccion();
@@ -66,6 +73,11 @@ public class BasePalabra extends Base {
         return false;
     }
 
+    /**
+     * Devuelve una SimpleList de tuplas (archivo, cantidad) 
+     * @param p
+     * @return 
+     */
     public static SimpleList<Tuple> obtenerArchivosPorPalabra(String p) {
         try {
 
@@ -114,7 +126,7 @@ public class BasePalabra extends Base {
 
             return listaPalabras;
         } catch (Exception e) {
-            System.out.println(e.getClass() + " - " + e.getMessage());
+            //System.out.println(e.getClass() + " - " + e.getMessage());
         }
         return null;
     }
@@ -177,7 +189,7 @@ public class BasePalabra extends Base {
                 }
                 //}
             } catch (Exception e) {
-                System.out.println(e.getClass() + " - " + e.getMessage());
+                //System.out.println(e.getClass() + " - " + e.getMessage());
                 s.getConnection().rollback();
             } finally {
                 s.getConnection().commit();
@@ -188,7 +200,7 @@ public class BasePalabra extends Base {
             }
             return true;
         } catch (Exception ex) {
-            System.out.println(ex.getClass() + " - " + ex.getMessage());
+            //System.out.println(ex.getClass() + " - " + ex.getMessage());
         }
         return false;
     }

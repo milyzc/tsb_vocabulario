@@ -1,5 +1,6 @@
 package presentacion;
 
+import java.awt.Color;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import logica.entidades.Palabra;
@@ -24,7 +25,7 @@ public class DetallePalabra extends javax.swing.JFrame {
         this.lblPalabraSeleccionada.setText(p.getDescripcion());
         this.lblAparicionesTotal.setText(String.valueOf(p.getCantidad()));
         mostrarDetalles(palabras);
-        
+        this.setBackground(Color.CYAN);
     }
 
     public void mostrarDetalles(SimpleList<Tuple> frecuenciaXArchivos) {
@@ -37,7 +38,7 @@ public class DetallePalabra extends javax.swing.JFrame {
                 }
 
             };
-            dtm.setColumnIdentifiers(new String[]{"Archivo", "Frecuencia"});
+            dtm.setColumnIdentifiers(new String[]{"Archivo", "Apariciones en Archivo"});
             Iterator<Tuple> it = frecuenciaXArchivos.iterator();
             Tuple fxa = null;
             while (it.hasNext()) {
@@ -64,6 +65,7 @@ public class DetallePalabra extends javax.swing.JFrame {
         label2 = new java.awt.Label();
         lblPalabraSeleccionada = new javax.swing.JLabel();
         lblAparicionesTotal = new javax.swing.JLabel();
+        label3 = new java.awt.Label();
 
         label1.setText("label1");
 
@@ -98,6 +100,8 @@ public class DetallePalabra extends javax.swing.JFrame {
 
         lblAparicionesTotal.setText("jLabel1");
 
+        label3.setText("Apariciones en Total");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,31 +111,30 @@ public class DetallePalabra extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblPalabraSeleccionada)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)
                                 .addComponent(lblAparicionesTotal)
-                                .addGap(83, 83, 83)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblPalabraSeleccionada))
+                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPalabraSeleccionada)
                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(lblPalabraSeleccionada)
-                            .addGap(20, 20, 20))
-                        .addComponent(lblAparicionesTotal, javax.swing.GroupLayout.Alignment.TRAILING)))
-                .addGap(18, 18, 18)
+                    .addComponent(lblAparicionesTotal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                .addContainerGap())
         );
 
         pack();
@@ -140,6 +143,7 @@ public class DetallePalabra extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
     private java.awt.Label label2;
+    private java.awt.Label label3;
     private javax.swing.JLabel lblAparicionesTotal;
     private javax.swing.JLabel lblPalabraSeleccionada;
     private javax.swing.JTable tblArchivos;
