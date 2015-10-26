@@ -28,95 +28,51 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                              <Component id="lblBuscar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="txtBuscar" min="-2" pref="147" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="229" max="-2" attributes="0"/>
-                              <Component id="btnDetallePalabra" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblVocabulario" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="fcSeleccionadorArchivos" min="-2" pref="9" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                      <Component id="lblBuscar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="txtBuscar" min="-2" pref="147" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="235" max="-2" attributes="0"/>
+                      <Component id="btnDetallePalabra" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnSeleccionarArchivos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                      <Component id="fcSeleccionadorArchivos" min="-2" pref="9" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="706" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="351" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnSeleccionarArchivos" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                              <Component id="btnProcesar" min="-2" pref="104" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblArchivosAProcesar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="pbProcesandoArchivos" min="-2" pref="195" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="lblVocabulario" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="txtBuscar" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="lblBuscar" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnDetallePalabra" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="fcSeleccionadorArchivos" pref="35" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblArchivosAProcesar" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="fcSeleccionadorArchivos" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="pbProcesandoArchivos" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="lblBuscar" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnDetallePalabra" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnSeleccionarArchivos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txtBuscar" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnProcesar" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnSeleccionarArchivos" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" pref="381" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="372" max="32767" attributes="0"/>
                   <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -125,12 +81,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="java.awt.Label" name="lblArchivosAProcesar">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="" noResource="true"/>
-        <Property name="text" type="java.lang.String" value="Archivos a procesar"/>
-      </Properties>
-    </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -156,7 +106,10 @@
     </Container>
     <Component class="java.awt.Label" name="lblBuscar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Buscador: "/>
       </Properties>
     </Component>
     <Component class="java.awt.TextField" name="txtBuscar">
@@ -164,17 +117,11 @@
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarKeyReleased"/>
       </Events>
     </Component>
-    <Component class="java.awt.Label" name="lblVocabulario">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="" noResource="true"/>
-        <Property name="text" type="java.lang.String" value="Vocabulario"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JFileChooser" name="fcSeleccionadorArchivos">
       <Properties>
         <Property name="acceptAllFileFilterUsed" type="boolean" value="false"/>
         <Property name="currentDirectory" type="java.io.File" editor="org.netbeans.beaninfo.editors.FileEditor">
-          <SerializedValue value="-84,-19,0,5,115,114,0,12,106,97,118,97,46,105,111,46,70,105,108,101,4,45,-92,69,14,13,-28,-1,3,0,1,76,0,4,112,97,116,104,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,120,112,116,0,26,69,58,92,84,83,66,92,116,115,98,95,118,111,99,97,98,117,108,97,114,105,111,92,114,101,115,119,2,0,92,120"/>
+          <SerializedValue value="-84,-19,0,5,115,114,0,12,106,97,118,97,46,105,111,46,70,105,108,101,4,45,-92,69,14,13,-28,-1,3,0,1,76,0,4,112,97,116,104,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,120,112,116,0,69,67,58,92,85,115,101,114,115,92,69,109,105,108,105,97,110,111,92,68,101,115,107,116,111,112,92,84,83,66,32,45,32,84,80,73,32,45,32,82,101,112,111,115,105,116,111,114,105,111,92,116,115,98,95,118,111,99,97,98,117,108,97,114,105,111,92,114,101,115,119,2,0,92,120"/>
         </Property>
       </Properties>
     </Component>
@@ -201,8 +148,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JProgressBar" name="pbProcesandoArchivos">
-    </Component>
     <Component class="javax.swing.JButton" name="btnDetallePalabra">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ver Detalle de Palabra"/>
@@ -217,14 +162,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeleccionarArchivosActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnProcesar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Procesar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcesarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

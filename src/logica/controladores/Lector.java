@@ -1,8 +1,8 @@
 package logica.controladores;
 
-import ConeccionBD.Base;
-import ConeccionBD.BaseArchivo;
-import ConeccionBD.BasePalabra;
+import ConexionBD.Base;
+import ConexionBD.BaseArchivo;
+import ConexionBD.BasePalabra;
 import logica.util.*;
 import logica.entidades.*;
 import presentacion.Inicio;
@@ -55,11 +55,11 @@ public class Lector {
     public boolean procesar_archivos(Archivo archivo) {
         if (BaseArchivo.insertarArchivo(archivo)) {
             archivo.setIdArchivo(BaseArchivo.obtenerIdArchivoPorRuta(archivo.getRuta()));
-            //System.out.println(LocalTime.now());
+
             leer(archivo);
-            //System.out.println(LocalTime.now());
+
             BasePalabra.insertarPalabra(archivo.getIdArchivo(), archivo.getPalabras());
-            //System.out.println(LocalTime.now());
+
             return true;
         }
         return false;
@@ -165,7 +165,6 @@ public class Lector {
 
     public static void main(String[] args) {
 
-        
         Lector lectorArchivos = new Lector();
 //        File f = new File("p.txt");
 //        try {

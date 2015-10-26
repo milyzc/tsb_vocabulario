@@ -1,6 +1,6 @@
 package logica.controladores;
 
-import ConeccionBD.Base;
+import ConexionBD.Base;
 import java.time.Clock;
 
 import java.util.Scanner;

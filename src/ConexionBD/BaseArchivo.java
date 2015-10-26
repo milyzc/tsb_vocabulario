@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ConeccionBD;
+package ConexionBD;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import static ConeccionBD.Base.getConeccion;
-import static ConeccionBD.Base.getStatement;
+import static ConexionBD.Base.getConeccion;
+import static ConexionBD.Base.getStatement;
+import javax.swing.JOptionPane;
 import logica.entidades.Archivo;
 
 /**
