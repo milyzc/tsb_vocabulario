@@ -16,8 +16,8 @@ public abstract class Base {
 
 //MILI
 //    public static String stringConeccion = "jdbc:sqlite:E:\\TSB\\tsb_vocabulario\\src\\BD\\DB.sqlite";
-//EMI
-private final static String stringConeccion = "jdbc:sqlite:C:\\Users\\Emiliano\\Desktop\\TSB - TPI - Repositorio\\tsb_vocabulario\\src\\BD\\DB.sqlite";
+//Tyncho
+private final static String stringConeccion = "jdbc:sqlite:C:\\Users\\Tyncho\\Desktop\\Tpi\\src\\BD\\DB.sqlite";
 
 //Por Ahora todos los metodos funcionan con tipos de datos simples como parametros. 
 //Cuando este resuelto lo de entidades funcionaran con los objetos como parametros.    

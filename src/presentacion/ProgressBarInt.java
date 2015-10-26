@@ -17,7 +17,6 @@ public class ProgressBarInt extends JFrame {
 
     private final Lector lector;
     private JPanel jContentPane = null;
-    private JButton btnStartWorker = null;
     private JProgressBar bar = null;
     private JLabel jLabel = null;
     private JLabel lblCompletado = null;
@@ -30,17 +29,10 @@ public class ProgressBarInt extends JFrame {
      *
      * @return javax.swing.JButton
      */
-    private JButton getBtnStartWorker() {
-        if (btnStartWorker == null) {
-            btnStartWorker = new JButton();
-            btnStartWorker.setBounds(new java.awt.Rectangle(11, 11, 117, 29));
-            btnStartWorker.setText("Procesar");
-            btnStartWorker.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                        btnStartWorker.setEnabled(false);
+    public  void procesoWorker() {
+        
                         if (trabajador == null) {
                         trabajador = new MiWorker();
-
                         //Agrego un Listener para el cambio de la propiedad "progress"
                         trabajador.addPropertyChangeListener(new PropertyChangeListener() {
                             public void propertyChange(PropertyChangeEvent evt) {
@@ -52,10 +44,7 @@ public class ProgressBarInt extends JFrame {
                     }
                     trabajador.execute();
                 }
-            });
-        }
-        return btnStartWorker;
-    }
+    
 
     /**
      * This method initializes bar
@@ -77,6 +66,8 @@ public class ProgressBarInt extends JFrame {
         super();
         initialize();
         this.lector = lector;
+        //llama al worker
+        procesoWorker();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -110,7 +101,6 @@ public class ProgressBarInt extends JFrame {
             jLabel.setText("Completado:");
             jContentPane = new JPanel();
             jContentPane.setLayout(null);
-            jContentPane.add(getBtnStartWorker(), null);
             jContentPane.add(getBar(), null);
             jContentPane.add(jLabel, null);
             jContentPane.add(lblCompletado, null);
